@@ -12,8 +12,8 @@ router.get('/login', function(req, res, next){
 	res.render('login', {message:'Login'})
 })
 
-router.get('/admin', function(req, res, next){
-	res.render('admin', {message:'Admin'})
+router.get('/home', function(req, res, next){
+	res.render('home', {message:'Home'})
 })
 
 //db-ում գրանցում է նոր user
@@ -73,7 +73,7 @@ router.post('/login', function(req, res, next){
 		let email=req.body.email
 		UserModel.findOne({email}).exec(function(err, user){
 			if (err) {
-				res.send({message:'err'});
+				res.send({message:err});
 				return;
 			}
 
@@ -88,7 +88,7 @@ router.post('/login', function(req, res, next){
 					
 					if(isMatch){
 
-						res.redirect('/users/admin')
+						res.redirect('/users/home')
 						
 						}else{
 			              return res.render('login', {message:'Incorrect password'})
