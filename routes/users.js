@@ -3,6 +3,7 @@ var router = express.Router();
 var session=require('express-session')
 var {UserModel}=require('../models/userModel.js')
 
+
 /* GET users listing. */
 router.get('/register', function(req, res, next) {
   res.render('register',{message:'Register'});
@@ -13,8 +14,10 @@ router.get('/login', function(req, res, next){
 })
 
 router.get('/home', function(req, res, next){
-	res.render('home', {message:'Home'})
+	res.render('home', {message:'home'})
 })
+
+
 
 //db-ում գրանցում է նոր user
 
@@ -22,13 +25,14 @@ router.post('/register', function(req, res, next) {
 
 	
 
-	 	if(!req.body.email || !req.body.password){
+	 	if(!req.body.username || !req.body.email || !req.body.password ){
           res.status("400");
           res.send("Invalid details!");
         } else {
         			//ստեղծելու է նոր user
-			    async function createUser(email, password) {
+			    async function createUser(username,email, password) {
 			      return new UserModel({
+			      	username:username,
 			        email:email,
 			        password:password
 			        
@@ -49,7 +53,7 @@ router.post('/register', function(req, res, next) {
 			  		let user=await findUser(email)
 			  		//եթե mail-ը նոր է, ավելացնում է user
 				  	if (!user){
-				  		await createUser(req.body.email, req.body.password)
+				  		await createUser(req.body.username,req.body.email, req.body.password)
 				  		console.log("Created")
 				  		res.redirect("/users/login")
 					}	else{
@@ -64,9 +68,9 @@ router.post('/register', function(req, res, next) {
 
 
 router.post('/login', function(req, res, next){
-	if(!req.body.email || !req.body.password){
-		 
-        res.render('login', {message: "Please enter both email and password"});
+	if(!req.body.username || !req.body.email || !req.body.password){
+		  
+        res.render('login', {message: "Please enter all dates"});
      	
 	}else{
 
@@ -74,7 +78,7 @@ router.post('/login', function(req, res, next){
 		UserModel.findOne({email}).exec(function(err, user){
 			if (err) {
 				res.send({message:err});
-				return;
+				return done(null, user);
 			}
 
 			if(!user){
@@ -87,9 +91,14 @@ router.post('/login', function(req, res, next){
 					}
 					
 					if(isMatch){
+	
+					let email=req.body.email
+				UserModel.findOne({email}).exec(function(err, user){
+						if (err) throw err
+							
+					res.render('home', {userInfo:user})
+					})
 
-						res.redirect('/users/home')
-						
 						}else{
 			              return res.render('login', {message:'Incorrect password'})
 			              
@@ -104,7 +113,10 @@ router.post('/login', function(req, res, next){
 		
 	};
 	
-})
+});
+
+
+
 
 
 

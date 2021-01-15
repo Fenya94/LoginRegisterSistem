@@ -1,12 +1,19 @@
-<h1> <%= message %></h1>
-<form action="/home" method="Post">
-	<label for="home">Welcome to home page</label>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<p>
-	<a href="login">Logout</a>
-</p>
-	
-</form>
+<nav class="px-5 py-2 bg-secondary">
+ <a href="/users/home" class="text-white">Profile</a>  
+ <a href="/users/login" class="float-right text-white">LogOut</a>   
+</nav>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/javascripts/chat.js"></script>
+
+
+<div class="w3-container text-center">
+		<p><%=userInfo.username %></p>
+		<img src="/images/default_profile.png">
+		<p><%= userInfo.email %></p>
+		
+
+
+	</div>

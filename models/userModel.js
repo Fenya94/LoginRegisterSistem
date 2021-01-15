@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt')
 
 
 const UserSchema = new mongoose.Schema({
+	username:{
+		type: String,
+		required: true
+	},
 	email:{
 		type: String,
 		required: true
@@ -46,7 +50,8 @@ UserSchema.methods.comparePassword = function comparePassword(oldpassword, cb){
 const UserModel=mongoose.model('user', UserSchema)
 
 // var testUser= new UserModel({
-// 	email:'fenya.mkrtchyan@mail.ru',
+// 	username:'Fenya',
+// 	email:'fenya1234.ru',
 // 	password:'1234'
 // })
 // testUser.save(function(err){
