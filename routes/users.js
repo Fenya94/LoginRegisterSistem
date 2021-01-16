@@ -68,9 +68,9 @@ router.post('/register', function(req, res, next) {
 
 
 router.post('/login', function(req, res, next){
-	if(!req.body.username || !req.body.email || !req.body.password){
+	if(!req.body.email || !req.body.password){
 		  
-        res.render('login', {message: "Please enter all dates"});
+        res.render('login', {message: "Please enter bouht email and password"});
      	
 	}else{
 

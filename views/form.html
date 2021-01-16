@@ -4,14 +4,10 @@
 	<title></title>
 </head>
 <body>
-	<div class="w3-container text-center">
-		<p><%=username%></p>
-		<img src="/images/default_profile.png">
-		<p><%=email%></p>
-
-
-	</div>
-
+	<form action="/users/changePhoto" method="Post" id="changePhoto">
+		Choose file<input type="file" name="" id="file">
+		<input type="submit" name="" value="save">
+	</form>
 
 </body>
 </html>

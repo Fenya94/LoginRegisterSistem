@@ -5,15 +5,19 @@
  <a href="/users/login" class="float-right text-white">LogOut</a>   
 </nav>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/javascripts/chat.js"></script>
-
 
 <div class="w3-container text-center">
-		<p><%=userInfo.username %></p>
-		<img src="/images/default_profile.png">
-		<p><%= userInfo.email %></p>
-		
+		<p><h2><%=userInfo.username %></h2></p>
+		<img src="/images/default_profile.png" id="myImage" width="200" height="200" >
 
+	<form action="/users/changePhoto" method="Post" enctype="multipart/form-data" id="changePhoto">
+		Choose file<input type="file" name="" id="file">
+		<input type="submit" name="" value="save" >
+	</form>
 
+		<p><b><%= userInfo.email %></b></p>
 	</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/chat.js"></script>
+<script src="/javascripts/home.js"></script>
